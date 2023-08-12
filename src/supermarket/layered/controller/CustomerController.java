@@ -23,4 +23,16 @@ public class CustomerController {
     public ArrayList<CustomerDto> getAllCustomers() throws Exception {
         return customerService.getAllCustomers();
     }
+    
+    public CustomerDto getCustomer(String id) throws Exception {
+        return  customerService.getCustomer(id);
+    }
+    
+    public String updateCustomer(CustomerDto customerDto) throws Exception {
+        return customerService.updateCustomer(customerDto);
+    }
+    
+    public String deleteCustomer(String id) throws Exception {
+        return customerService.deleteCustomer(id);
+    }
 }

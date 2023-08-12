@@ -318,15 +318,15 @@ public class CustomerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_custSaveBtnActionPerformed
 
     private void custUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custUpdateBtnActionPerformed
-        
+        updateCustomer();
     }//GEN-LAST:event_custUpdateBtnActionPerformed
 
     private void custDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custDeleteBtnActionPerformed
-        
+        deleteCustomer();
     }//GEN-LAST:event_custDeleteBtnActionPerformed
 
     private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
-        
+        getCustomer();
     }//GEN-LAST:event_customerTableMouseClicked
 
 
@@ -376,6 +376,7 @@ public class CustomerPanel extends javax.swing.JPanel {
             String resp = customerController.saveCustomer(customerDto);
             JOptionPane.showMessageDialog(this, resp);
             clear();
+            loadAllCustomers();
         } catch (Exception ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -411,6 +412,65 @@ public class CustomerPanel extends javax.swing.JPanel {
                 Object[] rowData = {customer.getId(), customer.getTitle()+ ". " + customer.getName(), customer.getAddress()+ ", " + customer.getCity(), customer.getSalary(), customer.getPostalCode()};
                 dtm.addRow(rowData);
             }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+    
+    private void getCustomer() {
+        try {
+            String custId = customerTable.getValueAt(customerTable.getSelectedRow(), 0).toString();
+            CustomerDto customerDto = customerController.getCustomer(custId);
+            
+            if(customerDto != null){
+                custIdField.setText(customerDto.getId());
+                custTitleComboBox.setSelectedItem(customerDto.getTitle());
+                custNameField.setText(customerDto.getName());
+                custDobField.setText(customerDto.getDob());
+                custSalaryField.setText(Double.toString(customerDto.getSalary()));
+                custAddressField.setText(customerDto.getAddress());
+                custCityField.setText(customerDto.getCity());
+                custProvinceComboBox.setSelectedItem(customerDto.getProvince());
+                custPostalCodeField.setText(customerDto.getPostalCode());
+            } else {
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+    
+    private void updateCustomer() {
+        try {
+            CustomerDto customerDto = new CustomerDto(custIdField.getText(),
+                    String.valueOf(custTitleComboBox.getSelectedItem()),
+                    custNameField.getText(),
+                    custDobField.getText(),
+                    custAddressField.getText(),
+                    custCityField.getText(),
+                    String.valueOf(custProvinceComboBox.getSelectedItem()),
+                    custPostalCodeField.getText(),
+                    Double.valueOf(custSalaryField.getText().replaceAll(",", "")));
+            
+            String resp = customerController.updateCustomer(customerDto);
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadAllCustomers();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+    
+    private void deleteCustomer() {
+        try {
+            String id = custIdField.getText();
+            String resp = customerController.deleteCustomer(id);
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadAllCustomers();
         } catch (Exception ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
