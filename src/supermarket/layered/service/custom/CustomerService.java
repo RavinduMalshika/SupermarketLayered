@@ -14,8 +14,12 @@ import supermarket.layered.service.SuperService;
  */
 public interface CustomerService extends SuperService{
     String saveCustomer(CustomerDto customerDto) throws Exception;
+    
     String updateCustomer(CustomerDto customerDto) throws Exception;
+    
     String deleteCustomer(String id) throws Exception;
+    
     CustomerDto getCustomer(String id) throws Exception;
+    
     ArrayList<CustomerDto> getAllCustomers() throws Exception;
 }
