@@ -152,6 +152,9 @@ public class CustomerEntity {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "CustomerEntity{" + "id=" + id + ", title=" + title + ", name=" + name + ", dob=" + dob + ", address=" + address + ", city=" + city + ", province=" + province + ", postalCode=" + postalCode + ", salary=" + salary + '}';
+    }
 }

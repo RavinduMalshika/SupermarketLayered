@@ -4,10 +4,13 @@
  */
 package supermarket.layered.dao.custom;
 
+import supermarket.layered.dao.CrudDao;
+import supermarket.layered.entity.CustomerEntity;
+
 /**
  *
  * @author ravin
  */
-public interface CustomerDao {
+public interface CustomerDao extends CrudDao<CustomerEntity, String>{
     
 }

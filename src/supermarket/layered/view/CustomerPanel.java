@@ -4,9 +4,12 @@
  */
 package supermarket.layered.view;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import supermarket.layered.controller.CustomerController;
 import supermarket.layered.dto.CustomerDto;
 
@@ -22,6 +25,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     public CustomerPanel() {
         customerController = new CustomerController();
         initComponents();
+        loadAllCustomers();
     }
 
     /**
@@ -388,5 +392,28 @@ public class CustomerPanel extends javax.swing.JPanel {
         custCityField.setText("");
         custProvinceComboBox.setSelectedIndex(0);
         custPostalCodeField.setText("");
+    }
+    
+    private void loadAllCustomers() {
+        try {
+            String [] columns = {"ID", "Name", "Adress", "Salary", "Postal Code"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            customerTable.setModel(dtm);
+            
+            ArrayList<CustomerDto> customers = customerController.getAllCustomers();
+            
+            for (CustomerDto customer : customers) {
+                Object[] rowData = {customer.getId(), customer.getTitle()+ ". " + customer.getName(), customer.getAddress()+ ", " + customer.getCity(), customer.getSalary(), customer.getPostalCode()};
+                dtm.addRow(rowData);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }
