@@ -31,7 +31,7 @@ public class LayoutView extends javax.swing.JFrame {
         sideNavPanel = new javax.swing.JPanel();
         manageItemBtn = new javax.swing.JButton();
         manageCustBtn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        placeOrderBtn = new javax.swing.JButton();
         bodyPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,7 +77,13 @@ public class LayoutView extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("jButton1");
+        placeOrderBtn.setBackground(new java.awt.Color(102, 51, 255));
+        placeOrderBtn.setText("Place Order");
+        placeOrderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                placeOrderBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout sideNavPanelLayout = new javax.swing.GroupLayout(sideNavPanel);
         sideNavPanel.setLayout(sideNavPanelLayout);
@@ -88,7 +94,7 @@ public class LayoutView extends javax.swing.JFrame {
                 .addGroup(sideNavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(manageCustBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(manageItemBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                    .addComponent(placeOrderBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sideNavPanelLayout.setVerticalGroup(
@@ -99,7 +105,7 @@ public class LayoutView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(manageItemBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(placeOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(289, Short.MAX_VALUE))
         );
 
@@ -145,6 +151,10 @@ public class LayoutView extends javax.swing.JFrame {
         loadItemPanel();
     }//GEN-LAST:event_manageItemBtnActionPerformed
 
+    private void placeOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderBtnActionPerformed
+        loadOrderPanel();
+    }//GEN-LAST:event_placeOrderBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -183,10 +193,10 @@ public class LayoutView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bodyPanel;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manageCustBtn;
     private javax.swing.JButton manageItemBtn;
+    private javax.swing.JButton placeOrderBtn;
     private javax.swing.JPanel sideNavPanel;
     // End of variables declaration//GEN-END:variables
     
@@ -204,6 +214,15 @@ public class LayoutView extends javax.swing.JFrame {
         ItemPanel itemPanel = new ItemPanel();
         itemPanel.setSize(bodyPanel.getWidth(), bodyPanel.getHeight());
         bodyPanel.add(itemPanel);
+        bodyPanel.repaint();
+        bodyPanel.revalidate();
+    }
+    
+    private void loadOrderPanel() {
+        bodyPanel.removeAll();
+        OrderPanel orderPanel = new OrderPanel();
+        orderPanel.setSize(bodyPanel.getWidth(), bodyPanel.getHeight());
+        bodyPanel.add(orderPanel);
         bodyPanel.repaint();
         bodyPanel.revalidate();
     }
